@@ -1,6 +1,6 @@
 from os.path import basename, splitext
 import tkinter as tk
-from tkinter import Scale, Canvas, Entry, HORIZONTAL, StringVar, Label, Frame, messagebox, IntVar, Button, Radiobutton, LabelFrame
+from tkinter import Canvas, Entry, HORIZONTAL, StringVar, Label, Frame, messagebox, IntVar, Button, Radiobutton, LabelFrame, Menu, Message, PhotoImage
 import random
 from matplotlib import pyplot as plt
 import numpy as np
@@ -27,9 +27,18 @@ class Grafy(Frame):
         self.master.columnconfigure(1, weight=1500)
         self.master.columnconfigure(2, weight=1500)
         self.master.columnconfigure(3, weight=1500)
+
+        menu = Menu(self.master)
+        self.master.config(menu=menu)
+
+        filemenu = Menu(menu, tearoff=0)
+        filemenu.add_command(label="About", command=self.help)
+        menu.add_cascade(label="Help", menu=filemenu)
+
         self.okno()
         
-        
+    def help(self):
+        messagebox.showinfo("info", "Petr Kolesár \n \n Program pracuje s funkcemi, konkrétně s grafy, které zobrazuje.")   
        
 
     def okno(self):
@@ -49,12 +58,7 @@ class Grafy(Frame):
 
         self.souborFrame = LabelFrame(text="graf ze souboru", padx=5, pady=5, borderwidth=10)
         self.souborFrame.grid(column=0, row=5, columnspan=3, sticky="WENS")
-        
 
-        self.nadpis = Label(text="Vítej v programu na zobrazení grafů funkcí!!!")
-        self.nadpis.grid(row=0, column=1, columnspan=2)
-
-        
         self.sinus = Radiobutton(self.fceFrame, text="sinus", variable=self.f, value=1)
         self.sinus.grid(row=1, column=0, sticky="W")
 
